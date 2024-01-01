@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "glyphify"
+version = "1.0.0"
+description = "✨🔠 Create ASCII art and stylized UTF-8 text effortlessly!"
+authors = ["selfkilla666 <selfkilla666@yahoo.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+eel = "^0.16.0"
+loguru = "^0.7.2"
+toml = "^0.10.2"
+discord-rpc = "^4.0"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
+flake8 = "^6.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
