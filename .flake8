@@ -3,7 +3,8 @@ max-line-length = 88
 exclude =
     .git,
     __pycache__,
-    venv
+    venv,
+    docs
 extend-ignore =
     H101,
     H202,
