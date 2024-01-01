@@ -17,6 +17,7 @@ discord-rpc = "^4.0"
 mypy = "^1.8.0"
 flake8 = "^6.1.0"
 black = "^23.12.1"
+types-toml = "^0.10.8.7"
 
 [build-system]
 requires = ["poetry-core"]
