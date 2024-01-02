@@ -13,6 +13,8 @@ from glyphify.utils.thread import StoppableThread
 from glyphify.utils.path import get_user_local_directory
 from glyphify.utils.logs import generate_log_path
 from glyphify.utils.debug import log_debug_info
+from glyphify.utils.json import load_json_file
+from glyphify.utils.random import get_random_emoji_for_title
 
 import loguru
 import eel
@@ -25,7 +27,7 @@ if TYPE_CHECKING:
 LOG_FILE_PATH: str = str(generate_log_path(get_user_local_directory()))
 SETTINGS_PATH: str = str(Path(get_user_local_directory() / "settings.toml"))
 EEL_DIRECTORY: Path = Path("web")
-EEL_JINJA_TEMPLATES_DIRECTORY: Path = Path("templates")
+EMOJIS_FOR_TITLE_JSON_PATH: Path = Path("emoticons.json")
 
 
 class GlyphifyApplication:
@@ -37,8 +39,6 @@ class GlyphifyApplication:
         APPLICATION_VERSION (str): The version of the Glyphify application.
         APPLICATION_ORG_NAME (str): The organization name associated with Glyphify.
         APPLICATION_ORG_DOMAIN (str): The organization domain associated with Glyphify.
-
-        APPLICATION_TITLE_FORMAT (str): The formatted title of the Glyphify application.
 
         logger (loguru.Logger): The logger instance for Glyphify.
         argv (list[str]): Command-line arguments for Glyphify.
@@ -86,7 +86,8 @@ class GlyphifyApplication:
     APPLICATION_ORG_NAME: str = "Witch Software"
     APPLICATION_ORG_DOMAIN: str = "witch-software.com"
 
-    APPLICATION_TITLE_FORMAT: str = f"{APPLICATION_NAME} v{APPLICATION_VERSION}"
+    APPLICATION_TITLE_FORMAT: str = "{name} {emoji}"
+    APPLICATION_TITLE: str
 
     # Variables
     logger: loguru.Logger
@@ -148,6 +149,8 @@ class GlyphifyApplication:
         eel.init(str(EEL_DIRECTORY))
         self.discord_rpc.setup()
 
+        self.APPLICATION_TITLE = self.application_title_with_emoji
+
     def initialize_logger(self):
         """
         Initialize the logger for Glyphify.
@@ -186,7 +189,7 @@ class GlyphifyApplication:
             self.on_window_close()
             return
 
-        eel.start("templates/index.html", mode="chrome", port=9876)
+        eel.start("index.html", mode="chrome", port=9876)
 
     def run(self, *, argv: Optional[list[str]] = None) -> None:
         """
@@ -206,7 +209,7 @@ class GlyphifyApplication:
         self.eel_window_thread = StoppableThread(target=self.setup_eel_window)
         self.eel_window_thread.start()
 
-        eel.setWindowTitle(self.APPLICATION_TITLE_FORMAT)  # type: ignore[attr-defined]
+        eel.setWindowTitle(self.APPLICATION_TITLE)  # type: ignore[attr-defined]
 
         self.logger.success("Application starts!")
 
@@ -236,3 +239,13 @@ class GlyphifyApplication:
         self.settings.save_settings()
 
         self.close()
+
+    @property
+    def application_title_with_emoji(self) -> str:
+        # TODO: make this code better maybe? ¯\_(ツ)_/¯
+
+        emojis: str = load_json_file(EMOJIS_FOR_TITLE_JSON_PATH)["titles"]
+        emoji: str = get_random_emoji_for_title(emojis)
+        return self.APPLICATION_TITLE_FORMAT.format(
+            name=self.APPLICATION_NAME, emoji=emoji
+        )
