@@ -27,7 +27,7 @@ def load_json_file(path: Path) -> dict[Any, Any]:
         ```
     """
 
-    with open(path, "r") as file:
+    with open(path, "r", encoding="UTF-8") as file:
         return load(file)
 
 
