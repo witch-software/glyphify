@@ -189,7 +189,7 @@ class GlyphifyApplication:
             self.on_window_close()
             return
 
-        eel.start("index.html", mode="chrome", port=9876)
+        eel.start("index.html", mode="chrome", port=9876, allowed_extensions=['.js', '.html', '.css', '.png', '.jpg', '.jpeg', '.gif'])
 
     def run(self, *, argv: Optional[list[str]] = None) -> None:
         """
