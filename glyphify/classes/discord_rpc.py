@@ -70,7 +70,7 @@ class GlyphifyDiscordRPC:
         buttons: list[dict[str, str]]
 
         buttons = button(
-            button_one_label="Repository",
+            button_one_label="GitHub Repository",
             button_one_url="https://github.com/witch-software/glyphify",
             button_two_label="Download too!",
             button_two_url="https://witchsoftware.itch.io/glyphify",
@@ -81,16 +81,13 @@ class GlyphifyDiscordRPC:
     def setup(self) -> None:
         """
         Set up the Discord Rich Presence.
-
-        Returns:
-            None
         """
 
         self.buttons = self.create_buttons()
 
         self.rpc.set_activity(
-            state="pip install discord-rpc",
-            details="Discord RPC",
+            state="¯\_(ツ)_/¯",
+            details="Make it in future...",
             buttons=self.buttons,
             timestamp=self.rpc.timestamp,
         )

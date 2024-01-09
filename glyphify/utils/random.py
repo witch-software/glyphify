@@ -24,3 +24,15 @@ def get_random_emoji_for_title(
     weight_key: str = "weight",
 ) -> str:
     return choice_random_with_weights(values, weight_key=weight_key)[value_key]
+
+def get_random_discord_rpc_image():
+    # TODO
+    raise NotImplemented
+
+def get_random_discord_rpc_details():
+    # TODO
+    raise NotImplemented
+
+def get_random_index_page_background():
+    # TODO
+    raise NotImplemented
