@@ -8,9 +8,10 @@ import argparse
 
 
 class GlyphifyArguments:
-
     APPLICATION_NAME: str = "glyphify"
-    APPLICATION_DESCRIPTION: str = "Create ASCII art and stylized UTF-8 text effortlessly!"
+    APPLICATION_DESCRIPTION: str = (
+        "Create ASCII art and stylized UTF-8 text effortlessly!"
+    )
 
     parser: argparse.ArgumentParser = argparse.ArgumentParser(
         prog=APPLICATION_NAME, description=APPLICATION_DESCRIPTION
@@ -20,7 +21,6 @@ class GlyphifyArguments:
         self.initialize_arguments()
 
     def initialize_arguments(self) -> None:
-
         self.parser.add_argument(
             "--windowless",
             action="store_true",
@@ -37,5 +37,5 @@ class GlyphifyArguments:
 
     @property
     def arguments(self) -> argparse.Namespace:
-        """ Get application startup arguments """
+        """Get application startup arguments"""
         return self.parser.parse_args()

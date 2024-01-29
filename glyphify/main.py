@@ -11,11 +11,12 @@ import sys
 
 
 def run_application() -> None:
-
     arguments: GlyphifyArguments = GlyphifyArguments()
 
     # Setup application
-    application: GlyphifyApplication = GlyphifyApplication(sys.argv, arguments.arguments)
+    application: GlyphifyApplication = GlyphifyApplication(
+        sys.argv, arguments.arguments
+    )
 
     # Execute application
     application.run()

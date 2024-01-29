@@ -86,7 +86,7 @@ class GlyphifyDiscordRPC:
         self.buttons = self.create_buttons()
 
         self.rpc.set_activity(
-            state="¯\_(ツ)_/¯",
+            state="idk",
             details="Make it in future...",
             buttons=self.buttons,
             timestamp=self.rpc.timestamp,

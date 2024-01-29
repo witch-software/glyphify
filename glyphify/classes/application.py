@@ -189,7 +189,20 @@ class GlyphifyApplication:
             self.on_window_close()
             return
 
-        eel.start("index.html", mode="chrome", port=9876, allowed_extensions=['.js', '.html', '.css', '.png', '.jpg', '.jpeg', '.gif'])
+        eel.start(
+            "index.html",
+            mode="chrome",
+            port=9876,
+            allowed_extensions=[
+                ".js",
+                ".html",
+                ".css",
+                ".png",
+                ".jpg",
+                ".jpeg",
+                ".gif",
+            ],
+        )
 
     def run(self, *, argv: Optional[list[str]] = None) -> None:
         """
@@ -244,7 +257,7 @@ class GlyphifyApplication:
     def application_title_with_emoji(self) -> str:
         # TODO: make this code better maybe? ¯\_(ツ)_/¯
 
-        emojis: str = load_json_file(EMOJIS_FOR_TITLE_JSON_PATH)["titles"]
+        emojis: list[dict] = load_json_file(EMOJIS_FOR_TITLE_JSON_PATH)["titles"]
         emoji: str = get_random_emoji_for_title(emojis)
         return self.APPLICATION_TITLE_FORMAT.format(
             name=self.APPLICATION_NAME, emoji=emoji
