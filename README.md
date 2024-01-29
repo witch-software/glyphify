@@ -1,6 +1,6 @@
 # Glyphify
 
-![Banner](https://github.com/witch-software/glyphify/blob/main/.github/readme-banner.png?raw=true)
+<img src="https://github.com/witch-software/glyphify/blob/main/.github/readme-banner.png?raw=true" alt="Banner" style="border-radius: 10px;">
 
 ✨🔠 Create ASCII art and stylized UTF-8 text effortlessly!
 
