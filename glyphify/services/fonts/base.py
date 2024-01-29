@@ -7,6 +7,11 @@ from __future__ import annotations
 from typing import Optional
 from abc import ABC, abstractmethod
 
+from glyphify.services.fonts.map import FontMap
+
+
+IS_USABLE_FONT: bool = False
+
 
 class BaseFontProcessor(ABC):
     """
@@ -16,18 +21,23 @@ class BaseFontProcessor(ABC):
     for classes implementing specific font processing logic.
 
     Attributes:
+    - NAME (str): The name of the font processor.
+    - MAP (dict[str, str | list[str]]): Mapping for font-related information.
     - input_text (str): The input text to be processed.
 
     Methods:
-    - __init__(self, input_text: str) -> None: Constructor to initialize the input_text attribute.
-    - process(cls, text: str) -> str: Class method to initiate font processing on a given text.
-    - _process(self, text: Optional[str] = None) -> str: Abstract method to be implemented by subclasses
+    - __init__(self, input_text: str, *args, **kwargs) -> None: Constructor to initialize the input_text attribute.
+    - process(cls, text: str, *args, **kwargs) -> str: Class method to initiate font processing on a given text.
+    - _process(self, text: Optional[str] = None, *args, **kwargs) -> str: Abstract method to be implemented by subclasses
       for the actual font processing logic.
     """
 
+    NAME: str = "base"
+    MAP: FontMap
+
     input_text: str
 
-    def __init__(self, input_text: str) -> None:
+    def __init__(self, input_text: str, *args, **kwargs) -> None:
         """
         Constructor for the BaseFontProcessor class.
 
@@ -39,7 +49,7 @@ class BaseFontProcessor(ABC):
 
     @classmethod
     @abstractmethod
-    def process(cls, text: str) -> str:
+    def process(cls, text: str, *args, **kwargs) -> str:
         """
         Class method to initiate font processing on a given text.
 
@@ -50,10 +60,10 @@ class BaseFontProcessor(ABC):
         - str: The processed text.
         """
 
-        return cls(text)._process()
+        return cls(text)._process(*args, **kwargs)
 
     @abstractmethod
-    def _process(self, text: Optional[str] = None) -> str:
+    def _process(self, text: Optional[str] = None, *args, **kwargs) -> str:
         """
         Abstract method to be implemented by subclasses for the actual font processing logic.
 
