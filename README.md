@@ -1,4 +1,4 @@
-# Glyphify
+# 🔠 Glyphify
 
 <img src="https://github.com/witch-software/glyphify/blob/main/.github/readme-banner.png?raw=true" alt="Banner" style="border-radius: 10px;">
 
@@ -11,7 +11,7 @@
 
 ## Downloads
 
-You can install the latest stable version of the program from [our page on Itch.io](https://witchsoftware.itch.io/glyphify), or you can use the version from the [GitHub releases](https://github.com/witch-software/glyphify/releases)
+You can install the latest stable version of the program from [our page on Itch.io](https://witchsoftware.itch.io/glyphify), or you can use the version from the [GitHub releases](https://github.com/witch-software/glyphify/releases).
 
 - [Latest stable release](https://witchsoftware.itch.io/glyphify)
 - [Latest unstable release](https://github.com/witch-software/glyphify/releases/latest)
@@ -19,11 +19,11 @@ You can install the latest stable version of the program from [our page on Itch.
 
 ## Documentation
 
-You can get documentation for the program to modify it, improve it, or develop your own components on [ReadTheDocs page here](https://glyphify.readthedocs.io/en/latest/)
+You can get documentation for the program to modify it, improve it, or develop your own components on [ReadTheDocs page here](https://glyphify.readthedocs.io/en/latest/).
 
 ## Support
 
-You can help the development of our project by sending bug reports or suggestions to [our issues](https://github.com/witch-software/glyphify/issues), or help the team financially with donations on [our Ko-fi page](https://ko-fi.com/witchsoftware) or by installing [our program from Itch.io](witchsoftware.itch.io/glyphify)
+You can help the development of our project by sending bug reports or suggestions to [our issues](https://github.com/witch-software/glyphify/issues), or help the team financially with donations on [our Ko-fi page](https://ko-fi.com/witchsoftware) or by installing [our program from Itch.io](witchsoftware.itch.io/glyphify).
 
 ## Third-party components
 
@@ -36,7 +36,7 @@ Thanks so much to: <br>
 
 ## License
 
-Glyphify is provided under the [MIT License](https://github.com/witch-software/glyphify/blob/main/LICENSE)
+Glyphify is provided under the [MIT License](https://github.com/witch-software/glyphify/blob/main/LICENSE).
 
 ```text
 MIT License
