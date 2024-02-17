@@ -14,19 +14,18 @@ IS_USABLE_FONT: bool = False
 
 
 class AutoFontProcessor(BaseFontProcessor):
-
     NAME: str = "auto"
     MAP: FontMap
 
-    def __init__(self, input_text: str, NAME: str, MAP: FontMap, *args, **kwargs) -> None:
-
+    def __init__(
+        self, input_text: str, NAME: str, MAP: FontMap, *args, **kwargs
+    ) -> None:
         self.NAME: str = NAME
         self.MAP: FontMap = MAP
 
         super(AutoFontProcessor, self).__init__(input_text, *args, **kwargs)
 
     def _process(self, text: Optional[str] = None, *args, **kwargs) -> str:
-
         if text:
             self.input_text = text
 

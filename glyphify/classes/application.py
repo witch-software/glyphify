@@ -149,7 +149,7 @@ class GlyphifyApplication:
         eel.init(str(EEL_DIRECTORY))
 
         # Initialize Discord RPC activity
-        self.discord_rpc = GlyphifyDiscordRPC(logger = self.logger)
+        self.discord_rpc = GlyphifyDiscordRPC(logger=self.logger)
 
         self.APPLICATION_TITLE = self.application_title_with_emoji
 

@@ -8,7 +8,7 @@ from typing import Optional, TYPE_CHECKING
 
 from discordrpc import RPC as DiscordRPCActivity  # type: ignore[import-untyped]
 from discordrpc import button
-from discordrpc.exceptions import Error
+from discordrpc.exceptions import Error  # type: ignore[import-untyped]
 
 if TYPE_CHECKING:
     from loguru import Logger
@@ -48,7 +48,9 @@ class GlyphifyDiscordRPC:
     rpc: DiscordRPCActivity
     buttons: list[dict[str, str]]
 
-    def __init__(self, *, application_id: Optional[int] = None, logger: Optional[Logger] = None) -> None:
+    def __init__(
+        self, *, application_id: Optional[int] = None, logger: Optional[Logger] = None
+    ) -> None:
         """
         Initialize the GlyphifyDiscordRPC instance.
 
@@ -108,7 +110,7 @@ class GlyphifyDiscordRPC:
 
             if self.logger is not None:
                 self.logger.info("Discord RPC activity is set up!")
-        except:
+        except Exception:
             if self.logger is not None:
                 self.logger.error("Unable to initialize Discord RPC")
 
