@@ -4,10 +4,14 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from discordrpc import RPC as DiscordRPCActivity  # type: ignore[import-untyped]
 from discordrpc import button
+from discordrpc.exceptions import Error
+
+if TYPE_CHECKING:
+    from loguru import Logger
 
 
 class GlyphifyDiscordRPC:
@@ -37,12 +41,14 @@ class GlyphifyDiscordRPC:
 
     """
 
+    logger: Optional[Logger] = None
+
     DISCORD_RPC_APPLICATION_ID: int = 1191380153335566426
 
     rpc: DiscordRPCActivity
     buttons: list[dict[str, str]]
 
-    def __init__(self, *, application_id: Optional[int] = None) -> None:
+    def __init__(self, *, application_id: Optional[int] = None, logger: Optional[Logger] = None) -> None:
         """
         Initialize the GlyphifyDiscordRPC instance.
 
@@ -54,10 +60,17 @@ class GlyphifyDiscordRPC:
             None
         """
 
-        if application_id:
+        if application_id is not None:
             self.DISCORD_RPC_APPLICATION_ID = application_id
 
-        self.rpc = DiscordRPCActivity.set_id(self.DISCORD_RPC_APPLICATION_ID)
+        if logger is not None:
+            self.logger = logger
+
+        try:
+            self.rpc = DiscordRPCActivity.set_id(self.DISCORD_RPC_APPLICATION_ID)
+        except Error:
+            if self.logger is not None:
+                self.logger.warning("Failed to connect to Discord RPC")
 
     def create_buttons(self) -> list[dict[str, str]]:
         """
@@ -85,12 +98,19 @@ class GlyphifyDiscordRPC:
 
         self.buttons = self.create_buttons()
 
-        self.rpc.set_activity(
-            state="idk",
-            details="Make it in future...",
-            buttons=self.buttons,
-            timestamp=self.rpc.timestamp,
-        )
+        try:
+            self.rpc.set_activity(
+                state="idk",
+                details="Make it in future...",
+                buttons=self.buttons,
+                timestamp=self.rpc.timestamp,
+            )
+
+            if self.logger is not None:
+                self.logger.info("Discord RPC activity is set up!")
+        except:
+            if self.logger is not None:
+                self.logger.error("Unable to initialize Discord RPC")
 
     def set_activity(self, **kwargs) -> None:
         """
@@ -107,4 +127,8 @@ class GlyphifyDiscordRPC:
         Run the Discord Rich Presence.
         """
 
-        self.rpc.run()
+        try:
+            self.rpc.run()
+        except AttributeError:
+            if self.logger is not None:
+                self.logger.warning("Discord RPC cannot be started")

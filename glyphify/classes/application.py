@@ -98,7 +98,7 @@ class GlyphifyApplication:
     windowless: bool = False
 
     # Discord RPC for activity
-    discord_rpc: GlyphifyDiscordRPC = GlyphifyDiscordRPC()
+    discord_rpc: GlyphifyDiscordRPC
 
     # Threads
     discord_rpc_thread: StoppableThread
@@ -145,9 +145,11 @@ class GlyphifyApplication:
         else:
             self.initialize_settings()
 
-        # Initialize eel and Discord RPC activity
+        # Initialize eel
         eel.init(str(EEL_DIRECTORY))
-        self.discord_rpc.setup()
+
+        # Initialize Discord RPC activity
+        self.discord_rpc = GlyphifyDiscordRPC(logger = self.logger)
 
         self.APPLICATION_TITLE = self.application_title_with_emoji
 
@@ -216,8 +218,6 @@ class GlyphifyApplication:
 
         self.discord_rpc_thread = StoppableThread(target=self.discord_rpc.run)
         self.discord_rpc_thread.start()
-
-        self.logger.info("Discord RPC activity is set up!")
 
         self.eel_window_thread = StoppableThread(target=self.setup_eel_window)
         self.eel_window_thread.start()
