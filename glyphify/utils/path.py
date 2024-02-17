@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from pathlib import Path
 
 import os
@@ -15,7 +16,7 @@ DEFAULT_PATHS: dict[str, dict[str, str]] = {
 }
 
 
-def get_user_local_directory(paths: dict[str, dict[str, str]] = DEFAULT_PATHS) -> Path:
+def get_user_local_directory(paths: Optional[dict[str, dict[str, str]]] = None) -> Path:
     """ "
     Get the user's local directory for the specified application.
 
@@ -41,25 +42,20 @@ def get_user_local_directory(paths: dict[str, dict[str, str]] = DEFAULT_PATHS) -
         ```
     """
 
-    path: Path
+    if paths is None:
+        paths = DEFAULT_PATHS
 
-    # Determine the user's local application directory
+    org = paths.get(os.name, {}).get("org", "organization")
+    application = paths.get(os.name, {}).get("application", "application")
+
     if os.name == "posix":
-        path = Path(
-            os.path.expanduser(
-                f"~/.{paths[os.name]['org']}/{paths[os.name]['application']}/"
-            )
-        )
+        user_home = Path.home()
+        return user_home / f".{org.lower()}/{application.lower()}"
     elif os.name == "nt":
-        path = Path(
-            os.path.expanduser(
-                f"C:/Users/{os.getlogin()}/AppData/Local/{paths[os.name]['org']}/{paths[os.name]['application']}/"
-            )
-        )
+        appdata_path = os.getenv("APPDATA")
+        if appdata_path:
+            return Path(appdata_path) / org / application
+        else:
+            raise ValueError("Unable to determine the APPDATA directory.")
     else:
-        path = Path("./")
-
-    # Create the log directory if it doesn't exist
-    os.makedirs(path, exist_ok=True)
-
-    return path
+        raise ValueError("Unsupported operating system.")
